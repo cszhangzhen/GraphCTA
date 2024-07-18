@@ -2,7 +2,7 @@ import os.path as osp
 import torch
 import torch.nn.functional as F
 from torch import Tensor
-from torch_sparse import coalesce
+from torch_geometric.utils import coalesce
 
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
@@ -81,7 +81,7 @@ def get_modified_adj(modified_edge_index, perturbed_edge_weight, n, device, edge
         modified_edge_index, modified_edge_weight = modified_edge_index, perturbed_edge_weight
     edge_index = torch.cat((edge_index.to(device), modified_edge_index), dim=-1)
     edge_weight = torch.cat((edge_weight.to(device), modified_edge_weight))
-    edge_index, edge_weight = coalesce(edge_index, edge_weight, m=n, n=n, op='sum')
+    edge_index, edge_weight = coalesce(edge_index, edge_weight, reduce='sum')
 
     # Allow removal of edges
     edge_weight[edge_weight > 1] = 2 - edge_weight[edge_weight > 1]
@@ -98,9 +98,7 @@ def to_symmetric(edge_index, edge_weight, n, op='mean'):
     symmetric_edge_index, symmetric_edge_weight = coalesce(
         symmetric_edge_index,
         symmetric_edge_weight,
-        m=n,
-        n=n,
-        op=op
+        reduce=op
     )
     return symmetric_edge_index, symmetric_edge_weight
 

@@ -34,10 +34,11 @@ python train_target.py
 ## Citing
 If you find GraphCTA useful for your research, please consider citing the following paper:
 ```
-@article{zhang2024collaborate,
+@inproceedings{zhang2024collaborate,
   title={Collaborate to Adapt: Source-Free Graph Domain Adaptation via Bi-directional Adaptation},
   author={Zhang, Zhen and Liu, Meihan and Wang, Anhui and Chen, Hongyang and Li, Zhao and Bu, Jiajun and He, Bingsheng},
-  journal={arXiv preprint arXiv:2403.01467},
+  booktitle={Proceedings of the ACM on Web Conference 2024},
+  pages={664--675},
   year={2024}
 }
 ```
